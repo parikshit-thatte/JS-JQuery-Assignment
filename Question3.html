@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>JQuery Assignment</title>
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #18661a;
+            color: white;
+        }
+
+        .infoPallete {
+            background-color: #3b5fff;
+            border: #021670 solid 2px;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            opacity: 0;
+        }
+
+        .infoPallete:hover {
+            background-color: #041b80;
+            color: white;
+            transition-duration: 0.5s;
+        }
+
+        .content {
+            overflow-y: auto;
+        }
+
+    </style>
+    </head>
+ 
+    <body>
+        <div class="comments" style="border: 1px solid green;padding:1rem;margin-bottom: 0.5rem;"></div>
+        <button id="load" class="button">Load Data</button>
+        
+        <div class="content">
+
+        </div>
+        
+        <script>
+            $("#load").click(function(){
+                $.get("https://jsonplaceholder.typicode.com/posts", function(data, status){
+
+                // data = data.json();
+                console.log(typeof(data));
+                console.log(data)
+                // data.forEach(entry => {
+                for (let i = 0; i < data.length; i++) {
+                    setTimeout(function() {
+                        console.log(data[i].id);
+                        console.log(data[i].title);
+                        console.log(data[i].body);
+
+                        $(`<div id="${data[i].id}" class="infoPallete" ><h3 class="title">${data[i].title}</h3><p class="body">${data[i].body}</p></div>`)
+                        .appendTo(".content").animate({opacity: 1});
+                    }, 500*i);
+                }
+              });
+            }); 
+        </script>
+    </body>
+</html> 
